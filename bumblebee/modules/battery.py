@@ -7,6 +7,7 @@ Parameters:
     * battery.warning    : Warning threshold in % of remaining charge (defaults to 20)
     * battery.critical   : Critical threshold in % of remaining charge (defaults to 10)
     * battery.showdevice : If set to "true", add the device name to the widget (defaults to False)
+    * battery.nosuffix : If set to "true", removes charging/discharging from the widget (defaults to True)
 """
 
 import os
@@ -87,6 +88,9 @@ class Module(bumblebee.engine.Module):
 
         if bumblebee.util.asbool(self.parameter("showdevice", False)):
             output = "{} ({})".format(output, os.path.basename(widget.name))
+
+        if bumblebee.util.asbool(self.parameter("nosuffix", True)):
+            output = "{}".format(output, os.path.basename(widget.name))
 
         return output
        
